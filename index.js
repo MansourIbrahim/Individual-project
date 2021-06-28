@@ -18,7 +18,7 @@ function fetchData(url) {
 //fetchData("https://www.themealdb.com/api/json/v1/1/filter.php?a=Canadian");
 
 const generateRandomId = ()=>{
-    const randomId = (Math.floor(Math.random() * 100)+52771)
+    const randomId = (Math.floor(Math.random() * 30)+52771)
     console.log("randomId",randomId );
     return randomId;
 }
@@ -26,16 +26,18 @@ generateRandomId();
 
 function renderLandingImg(randomMealData){
 
+   
+    // const landingImgContainer = document.createElement("div")
+    // landingImgContainer.classList.add("landingImgContainer");
 
-    const landingImgContainer = document.createElement("div")
-    landingImgContainer.classList.add("landingImgContainer");
+    
+        const landingImg = document.createElement("img")
+        landingImg.classList.add("landingImg");
+        landingImg.src=randomMealData.meals[0].strMealThumb;
+       // landingImgContainer.appendChild(landingImg);
+    
 
-    const landingImg = document.createElement("img")
-    landingImg.classList.add("landingImg");
-    landingImg.src=randomMealData.meals[0].strMealThumb;
-    landingImgContainer.appendChild(landingImg);
-
-  return landingImgContainer
+  return landingImg;
 }
 
 
@@ -44,8 +46,8 @@ function renderRandomMeals(randomMealData){
 
    
 
-    const randomMealsContainer = document.createElement("div")
-    randomMealsContainer.classList.add("randomMealsContainer");
+    const randomMealContainer = document.createElement("div")
+    randomMealContainer.classList.add("randomMealContainer");
 
     const randomMealName = document.createElement("h2")
     randomMealName.classList.add("randomMealName");
@@ -60,14 +62,14 @@ function renderRandomMeals(randomMealData){
     randomMealImgContainer.appendChild(randomMealImg);
 
     const randomMealShortDescription = document.createElement("p")
-    randomMealShortDescription.classList.add("short-description");
+    randomMealShortDescription.classList.add("random-short-description");
     randomMealShortDescription.innerHTML=randomMealData.meals[0].strInstructions;
 
-    randomMealsContainer.appendChild(randomMealName)
-    randomMealsContainer.appendChild(randomMealImgContainer)
-    randomMealsContainer.appendChild(randomMealShortDescription)
+    randomMealContainer.appendChild(randomMealName)
+    randomMealContainer.appendChild(randomMealImgContainer)
+    randomMealContainer.appendChild(randomMealShortDescription)
 
-    return randomMealsContainer;
+    return randomMealContainer;
 
     
 
@@ -75,13 +77,11 @@ function renderRandomMeals(randomMealData){
 
 function renderSearchedResult(jsonData){
 
-    const previousSearch = document.getElementById("DOMSearchedResultsContainer");
-    if(previousSearch){
-         previousSearch.innerHTML="";
-        }
+    
     
 
     const allSearchedResultsContainer = document.createElement("div");
+    allSearchedResultsContainer.classList.add("allSearchedResultsContainer");
     allSearchedResultsContainer.id = "allSearchedResultsContainer";
 
     
@@ -127,17 +127,20 @@ function renderSearchedResult(jsonData){
 
 function showMealDetails(selectedMealData){
 
-    const previousSearch = document.getElementById("DOMSearchedResultsContainer");
-    if(previousSearch){
-         previousSearch.innerHTML="";
+    const selectedMealDetailsContainer = document.getElementById("allSearchedResultsContainer");
+    if(selectedMealDetailsContainer){
+        selectedMealDetailsContainer.innerHTML="";
         }
 
-        const selectedMealDetailsContainer = document.createElement("div")
-        selectedMealDetailsContainer.classList.add("selectedMealDetailsContainer");
+        // const selectedMealDetailsContainer = document.createElement("div")
+        // selectedMealDetailsContainer.classList.add("selectedMealDetailsContainer");
 
         const selectedMealName = document.createElement("h2")
         selectedMealName.classList.add("selectedMealName");
         selectedMealName.innerHTML=selectedMealData.meals[0].strMeal;
+
+        const selectedMealImgAndIngredientsContainer = document.createElement("div")
+        selectedMealImgAndIngredientsContainer.classList.add("selectedMealImgAndIngredientsContainer");
 
         const selectedMealImgContainer = document.createElement("div")
         selectedMealImgContainer.classList.add("selectedMealImgContainer");
@@ -146,6 +149,10 @@ function showMealDetails(selectedMealData){
         selectedMealImg.classList.add("selectedMealImg");
         selectedMealImg.src = selectedMealData.meals[0].strMealThumb;
         selectedMealImgContainer.appendChild(selectedMealImg);
+        
+
+        const ingredientContainer = document.createElement("div")
+        ingredientContainer.classList.add("ingredientContainer");
 
         const ingredientTitle = document.createElement("h3")
         ingredientTitle.classList.add("ingredientTitle");
@@ -169,6 +176,11 @@ function showMealDetails(selectedMealData){
             
         }
 
+        ingredientContainer.appendChild(ingredientTitle);
+        ingredientContainer.appendChild(selectedMealIngredientsContainer);
+        selectedMealImgAndIngredientsContainer.appendChild(ingredientContainer);
+        selectedMealImgAndIngredientsContainer.appendChild(selectedMealImgContainer);
+
         const descriptionTitle = document.createElement("h3")
         descriptionTitle.classList.add("descriptionTitle");
         descriptionTitle.innerHTML="The instructions";
@@ -184,9 +196,7 @@ function showMealDetails(selectedMealData){
         console.log(selectedMealData.meals[0].strYoutube)
 
         selectedMealDetailsContainer.appendChild(selectedMealName);
-        selectedMealDetailsContainer.appendChild(selectedMealImgContainer);
-        selectedMealDetailsContainer.appendChild(ingredientTitle);
-        selectedMealDetailsContainer.appendChild(selectedMealIngredientsContainer);
+        selectedMealDetailsContainer.appendChild(selectedMealImgAndIngredientsContainer);
         selectedMealDetailsContainer.appendChild(descriptionTitle);
         selectedMealDetailsContainer.appendChild(selectedMealDescription);
         selectedMealDetailsContainer.appendChild(selectedMealVideo);
@@ -204,34 +214,68 @@ function main (){
      DOMSearchedResultsContainer.id = "DOMSearchedResultsContainer";
      document.body.appendChild(DOMSearchedResultsContainer)
 
-     const randomImgId = generateRandomId();
+     const navBar = document.createElement("div")
+     navBar.classList.add("navBar");
+     DOMSearchedResultsContainer.appendChild(navBar)
+
+     const landingImgContainer = document.createElement("div")
+     landingImgContainer.classList.add("landingImgContainer");
+     for(let i=1; i<=5; i++){
+            const randomImgId = generateRandomId();
             let randomImgUrl = `https://themealdb.com/api/json/v1/1/lookup.php?i=${randomImgId}`
             fetchData(randomImgUrl)
             .then((randomMealData)=>{
                 let landingImg= renderLandingImg(randomMealData);
-                DOMSearchedResultsContainer.appendChild(landingImg);  
+                // DOMSearchedResultsContainer.appendChild(landingImg); 
+                landingImgContainer.appendChild(landingImg);
+                // DOMSearchedResultsContainer.style.backgroundImage = `url(${randomMealData.meals[0].strMealThumb})`;
+                // DOMSearchedResultsContainer.style.backgroundSize = "cover";
+                // DOMSearchedResultsContainer.style.height = `800px`;
                 })
-            .then(()=>{
+                .catch((error) => {
+                    console.log(error)
+                    });
+            }
+            DOMSearchedResultsContainer.appendChild(landingImgContainer);
+           // .then(()=>{
 
-               for(let i=0; i<=1; i++){
-                    const randomId = generateRandomId();
-                    let randomUrl = `https://themealdb.com/api/json/v1/1/lookup.php?i=${randomId}`
-                    fetchData(randomUrl)
-                    .then((randomMealData)=>{
-                        let randomMeal= renderRandomMeals(randomMealData);
-                        console.log('randomMeal', randomMeal)
-                        DOMSearchedResultsContainer.appendChild(randomMeal);  
-                        })
-                    .catch((error) => {
-                        console.log(error)
-                        }); 
-                }
-   
-            })
+            const searchBoxContainer = document.createElement("div")
+            searchBoxContainer.classList.add("searchBoxContainer");
+            const searchBox = document.createElement("input")
+            searchBox.classList.add("searchBox");
+            searchBox.id = "meal-name";
+            searchBox.placeholder = "type your meal";
+            searchBox.type = "text";
+            searchBoxContainer.appendChild(searchBox);
+            DOMSearchedResultsContainer.appendChild(searchBoxContainer)
 
-            .then(()=>{
+
+            const randomMealsContainer = document.createElement("div")
+            randomMealsContainer.classList.add("randomMealsContainer");
+            for(let i=0; i<=1; i++){
+                const randomId = generateRandomId();
+                let randomUrl = `https://themealdb.com/api/json/v1/1/lookup.php?i=${randomId}`
+                fetchData(randomUrl)
+                .then((randomMealData)=>{
+                    let randomMeal= renderRandomMeals(randomMealData);
+                    console.log('randomMeal', randomMeal)
+                    randomMealsContainer.appendChild(randomMeal);  
+                    })
+                .catch((error) => {
+                    console.log(error)
+                    }); 
+            }
+            DOMSearchedResultsContainer.appendChild(randomMealsContainer);
+
+           // })
+
+          //  .then(()=>{
                 let searchedMeal = document.getElementById("meal-name");
+                searchedMeal.onfocus =() =>{
+                    searchedMeal.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
+                }
                 searchedMeal.onkeyup = ()=>{
+                    
                     let searchUrl = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchedMeal.value}`
                     fetchData(searchUrl)
                     .then((jsonData)=>{
@@ -277,13 +321,11 @@ function main (){
                         console.log(error)
                         });
                 }
-            })
+          //  })
 
             
     
-            .catch((error) => {
-                console.log(error)
-                });
+           
      
     } 
 

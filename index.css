@@ -1,3 +1,254 @@
-body{
-    background-color: blueviolet;
+* {
+    /* box-sizing: border-box; */
+    margin: 0;
+    padding: 0;
+    
 }
+
+body {
+    font-family: 'Times New Roman', Times, serif;
+    background-color: rgb(42, 36, 70);
+}
+
+.DOMSearchedResultsContainer{
+    width: 100%;
+    position: relative;
+}
+
+/* start landing page */
+
+.navBar{
+    width: 100%;
+    height: 50px;
+    background-color: rgba(219, 83, 59, 1) ;
+    margin-bottom: 50px;
+}
+
+.landingImgContainer {
+    width: 100%; 
+}
+
+.landingImg{
+    width: 20%;  
+}
+
+.searchBoxContainer{
+    width: 25%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.searchBox{
+    
+    font-family: Takeaway Sans,Avant Garde,Century Gothic,Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    background-color: rgb(218, 248, 244);
+    font-size: 15px;
+    width: 100%;
+    -webkit-appearance: none;
+    border: 1px solid rgba(219, 83, 59, 1);
+    height: 3rem;
+    text-align: center;
+}
+
+
+.randomMealsContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.randomMealContainer{
+    padding: 20px;
+    margin: 20px;
+    width: calc(35% - 80px);
+    border: 2px solid rgba(219, 83, 59, 1);
+}
+
+.randomMealName{
+    color: rgb(212, 210, 199);
+    margin: 10px;
+    padding: 10px;
+    width: 80%;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.randomMealImgContainer{
+    width: 70%;
+    padding: 10px;
+    margin: 10px;
+}
+
+.randomMealImg{
+    width: 100%;
+}
+
+.random-short-description{
+    padding: 10px;
+    margin: 10px;
+    height: 100px;
+    color: rgb(212, 210, 199);
+    overflow: scroll;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+::-webkit-scrollbar {
+    width: 1px;
+  }
+
+  /* end landing page */
+
+  /* start searching page */
+
+  .allSearchedResultsContainer{
+    width: 70%;
+    height: 100%;
+    background-color: rgba(153, 126, 184, 0.959);
+    position: absolute;
+    top: 68%;
+    left: 15%;
+    overflow: scroll;
+  }
+
+  .searchedResultContainer{
+    display: flex;
+    justify-content: center;
+    border-bottom: 4px solid rgba(219, 83, 59, 1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 40px;
+    margin-right: 40px;
+    
+  }
+
+  .searchedResultContainer:hover{
+      cursor: pointer;
+  }
+
+  .mealNameAndDescriptionContainer{
+    padding: 10px;
+    margin: 10px;
+    width: calc(60% - 40px);
+  }
+
+  .mealName{
+    color: #1f233e;
+    margin: 5px;
+    padding: 5px;
+    width: 80%;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    text-decoration:rgb(109, 102, 100) underline;
+  }
+
+  .short-description{
+    font-size: 20px;
+    padding: 10px;
+    margin: 10px;
+    height: 100px;
+    color: #2a1f69;
+    overflow: scroll;
+    text-align: justify;
+    text-justify: inter-word;
+
+  }
+
+
+ .imgContainer{
+    padding: 10px;
+    margin: 10px;
+    width: calc(30% - 40px);
+ }
+
+ .mealImg{
+    width: 100%;
+ }
+
+ /* end searching page */
+
+ /* start selected meal page */
+
+.selectedMealName{
+    font-size: 25px;
+    color: #1f233e;
+    margin: 5px;
+    padding: 5px;
+    width: 80%;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    text-decoration:rgba(219, 83, 59, 1) underline;
+}
+
+.selectedMealImgAndIngredientsContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.selectedMealImgContainer{
+    padding: 10px;
+    margin: 10px;
+    width: calc(45% - 40px);
+}
+
+.selectedMealImg{
+    width: 100%;
+}
+
+.ingredientContainer{
+    padding: 10px;
+    margin: 10px;
+    width: calc(30% - 40px);
+}
+
+.ingredientTitle{
+    font-size: 20px;
+    color: #1f233e;
+    margin: 5px;
+    padding: 5px;
+    width: 80%;
+    text-decoration:rgb(109, 102, 100) underline;
+}
+
+.selectedMealIngredientsContainer{
+    font-size: 17px;
+    padding: 10px;
+    margin: 10px;
+    color: #2a1f69;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.descriptionTitle{
+    font-size: 20px;
+    color: #1f233e;
+    margin-left: 80px;
+    padding: 10px;
+    width: 80%;
+    text-decoration:rgb(109, 102, 100) underline;
+}
+
+.selectedMealDescription{
+    font-size: 17px;
+    padding: 10px;
+    margin: 10px;
+    margin-left: 50px;
+    margin-right: 50px;
+    color: #2a1f69;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.selectedMealVideo{
+width: 70%;
+height: auto;
+margin: 70px;
+
+}
+
+ /* end selected meal page */
