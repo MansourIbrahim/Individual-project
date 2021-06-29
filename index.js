@@ -4,17 +4,9 @@ function fetchData(url) {
   return fetch(url).then((response) => {
     return response.json();
   });
- 
 }
 
-const generateRandomId = () => {
-  const randomId = Math.floor(Math.random() * 10) + 52771;
-  console.log("randomId", randomId);
-  return randomId;
-};
-
 function renderLandingImg(randomMealData) {
-  
   const landingImg = document.createElement("img");
   landingImg.classList.add("landingImg");
   landingImg.src = randomMealData.meals[0].strMealThumb;
@@ -157,10 +149,9 @@ function showMealDetails(selectedMealData) {
 
   const selectedMealVideo = document.createElement("iframe");
   selectedMealVideo.classList.add("selectedMealVideo");
-  let refusedUrl = `${selectedMealData.meals[0].strYoutube}`
+  let refusedUrl = `${selectedMealData.meals[0].strYoutube}`;
   let embedUrl = refusedUrl.replace("watch?v=", "embed/");
   selectedMealVideo.src = embedUrl;
-  
 
   selectedMealDetailsContainer.appendChild(selectedMealName);
   selectedMealDetailsContainer.appendChild(
@@ -180,6 +171,26 @@ function main() {
 
   const navBar = document.createElement("div");
   navBar.classList.add("navBar");
+
+  const appNameContainer = document.createElement("div");
+  appNameContainer.classList.add("appNameContainer");
+
+  const appName = document.createElement("h3");
+  appName.classList.add("appName");
+  appName.innerHTML = "Hack your meals";
+  appNameContainer.appendChild(appName);
+
+  const barImgContainer = document.createElement("div");
+  barImgContainer.classList.add("barImgContainer");
+
+  const barImg = document.createElement("img");
+  barImg.classList.add("selectedMealImg");
+  barImg.src =
+    "https://img2.pngio.com/hamburger-menu-navigation-icon-website-navigation-icons-png-512_512.png";
+  barImgContainer.appendChild(barImg);
+
+  navBar.appendChild(barImgContainer);
+  navBar.appendChild(appNameContainer);
   DOMSearchedResultsContainer.appendChild(navBar);
 
   const landingImgContainer = document.createElement("div");
@@ -197,7 +208,6 @@ function main() {
       });
   }
   DOMSearchedResultsContainer.appendChild(landingImgContainer);
- 
 
   const searchBoxContainer = document.createElement("div");
   searchBoxContainer.classList.add("searchBoxContainer");
@@ -212,7 +222,6 @@ function main() {
   const randomMealsContainer = document.createElement("div");
   randomMealsContainer.classList.add("randomMealsContainer");
   for (let i = 0; i <= 1; i++) {
-    //const randomId = generateRandomId();
     let randomUrl = `https://www.themealdb.com/api/json/v1/1/random.php`;
     fetchData(randomUrl)
       .then((randomMealData) => {
@@ -278,28 +287,27 @@ function main() {
         console.log(error);
       });
   };
-  DOMSearchedResultsContainer.addEventListener("click", function (event){
+
+  DOMSearchedResultsContainer.addEventListener("click", function (event) {
     let unRequiredPage = document.getElementById("allSearchedResultsContainer");
-    var isClickInsideUnRequiredPageunRequiredPage = unRequiredPage.contains(event.target)
-     if(unRequiredPage && !isClickInsideUnRequiredPageunRequiredPage ){
-         location.reload();
-         DOMSearchedResultsContainer.classList.remove("Dom-Hover")
-     }
-  })
+    var isClickInsideUnRequiredPageunRequiredPage = unRequiredPage.contains(
+      event.target
+    );
+    if (unRequiredPage && !isClickInsideUnRequiredPageunRequiredPage) {
+      //location.reload();
+    }
+  });
 
-  DOMSearchedResultsContainer.addEventListener("mouseenter", function (event){
-    let unRequiredPage = document.getElementById("allSearchedResultsContainer");
-    var isClickInsideUnRequiredPageunRequiredPage = unRequiredPage.contains(event.target)
-     if(unRequiredPage && !isClickInsideUnRequiredPageunRequiredPage ){
-         DOMSearchedResultsContainer.classList.add("Dom-Hover")
-     }
-     DOMSearchedResultsContainer.classList.remove("Dom-Hover")
-
-  })
-
-
+  DOMSearchedResultsContainer.addEventListener("mouseenter", function (event) {
+    let unRequired = document.getElementById("allSearchedResultsContainer");
+    var isHoverInsideUnRequiredPageUnRequired = unRequired.contains(
+      event.target
+    );
+    if (unRequired && !isHoverInsideUnRequiredPageUnRequired) {
+      // DOMSearchedResultsContainer.classList.add("mans")
+    }
+    // DOMSearchedResultsContainer.classList.remove("mans")
+  });
 }
 
 window.onload = main();
-
-
