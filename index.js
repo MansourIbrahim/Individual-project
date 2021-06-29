@@ -180,6 +180,16 @@ function main() {
 
   const navBar = document.createElement("div");
   navBar.classList.add("navBar");
+
+  const appNameContainer = document.createElement("div");
+  appNameContainer.classList.add("appNameContainer");
+
+  const appName = document.createElement("h3");
+  appName.classList.add("appName");
+  appName.innerHTML = "Hack your meals";
+
+  appNameContainer.appendChild(appName);
+  navBar.appendChild(appNameContainer);
   DOMSearchedResultsContainer.appendChild(navBar);
 
   const landingImgContainer = document.createElement("div");
@@ -283,19 +293,18 @@ function main() {
     var isClickInsideUnRequiredPageunRequiredPage = unRequiredPage.contains(event.target)
      if(unRequiredPage && !isClickInsideUnRequiredPageunRequiredPage ){
          location.reload();
-         DOMSearchedResultsContainer.classList.remove("Dom-Hover")
      }
   })
 
-  DOMSearchedResultsContainer.addEventListener("mouseenter", function (event){
-    let unRequiredPage = document.getElementById("allSearchedResultsContainer");
-    var isClickInsideUnRequiredPageunRequiredPage = unRequiredPage.contains(event.target)
-     if(unRequiredPage && !isClickInsideUnRequiredPageunRequiredPage ){
-         DOMSearchedResultsContainer.classList.add("Dom-Hover")
-     }
-     DOMSearchedResultsContainer.classList.remove("Dom-Hover")
+//   DOMSearchedResultsContainer.addEventListener("mouseenter", function (event){
+//     let unRequired = document.getElementById("allSearchedResultsContainer");
+//     var isHoverInsideUnRequiredPageUnRequired = unRequired.contains(event.target)
+//      if(unRequired && !isHoverInsideUnRequiredPageUnRequired ){
+//          DOMSearchedResultsContainer.classList.add("mans")
+//      }
+//      DOMSearchedResultsContainer.classList.remove("mans")
 
-  })
+//   })
 
 
 }

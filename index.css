@@ -25,6 +25,20 @@ body {
     margin-bottom: 50px;
 }
 
+.appNameContainer{
+    margin: 5px;
+    margin-left: 25px;
+    width: 150px;
+    height: 50px;
+}
+
+.appName{
+    text-align: center;
+    padding: 13px 0;
+    margin: 0px;
+    color: rgb(42, 36, 70);
+}
+
 .landingImgContainer {
     width: 100%; 
 }
@@ -102,7 +116,7 @@ body {
   /* end landing page */
 
   /* start searching page */
-  .Dom-Hover:hover{
+  .mans:hover{
       cursor: pointer;
   }
 
