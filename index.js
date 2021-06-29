@@ -1,35 +1,23 @@
 "use strict";
-//document.body.style.color="#fff";
 
 function fetchData(url) {
   return fetch(url).then((response) => {
-    //console.log('step1', response);
     return response.json();
   });
-  //     .then((jsonData)=>{
-  //         console.log('data', jsonData)
-  //     })
-  //     .catch((error) => {
-  //         console.log(error);
-  //         });
+ 
 }
-//fetchData("https://www.themealdb.com/api/json/v1/1/filter.php?a=Canadian");
 
 const generateRandomId = () => {
   const randomId = Math.floor(Math.random() * 10) + 52771;
   console.log("randomId", randomId);
   return randomId;
 };
-// generateRandomId();
 
 function renderLandingImg(randomMealData) {
-  // const landingImgContainer = document.createElement("div")
-  // landingImgContainer.classList.add("landingImgContainer");
-
+  
   const landingImg = document.createElement("img");
   landingImg.classList.add("landingImg");
   landingImg.src = randomMealData.meals[0].strMealThumb;
-  // landingImgContainer.appendChild(landingImg);
 
   return landingImg;
 }
@@ -113,9 +101,6 @@ function showMealDetails(selectedMealData) {
     selectedMealDetailsContainer.innerHTML = "";
   }
 
-  // const selectedMealDetailsContainer = document.createElement("div")
-  // selectedMealDetailsContainer.classList.add("selectedMealDetailsContainer");
-
   const selectedMealName = document.createElement("h2");
   selectedMealName.classList.add("selectedMealName");
   selectedMealName.innerHTML = selectedMealData.meals[0].strMeal;
@@ -172,8 +157,10 @@ function showMealDetails(selectedMealData) {
 
   const selectedMealVideo = document.createElement("iframe");
   selectedMealVideo.classList.add("selectedMealVideo");
-  selectedMealVideo.src = selectedMealData.meals[0].strYoutube;
-  console.log(selectedMealData.meals[0].strYoutube);
+  let refusedUrl = `${selectedMealData.meals[0].strYoutube}`
+  let embedUrl = refusedUrl.replace("watch?v=", "embed/");
+  selectedMealVideo.src = embedUrl;
+  
 
   selectedMealDetailsContainer.appendChild(selectedMealName);
   selectedMealDetailsContainer.appendChild(
@@ -198,23 +185,19 @@ function main() {
   const landingImgContainer = document.createElement("div");
   landingImgContainer.classList.add("landingImgContainer");
   for (let i = 1; i <= 5; i++) {
-    const randomImgId = generateRandomId();
-    let randomImgUrl = `https://themealdb.com/api/json/v1/1/lookup.php?i=${randomImgId}`;
+    //const randomImgId = generateRandomId();
+    let randomImgUrl = `https://www.themealdb.com/api/json/v1/1/random.php`;
     fetchData(randomImgUrl)
       .then((randomMealData) => {
         let landingImg = renderLandingImg(randomMealData);
-        // DOMSearchedResultsContainer.appendChild(landingImg);
         landingImgContainer.appendChild(landingImg);
-        // DOMSearchedResultsContainer.style.backgroundImage = `url(${randomMealData.meals[0].strMealThumb})`;
-        // DOMSearchedResultsContainer.style.backgroundSize = "cover";
-        // DOMSearchedResultsContainer.style.height = `800px`;
       })
       .catch((error) => {
         console.log(error);
       });
   }
   DOMSearchedResultsContainer.appendChild(landingImgContainer);
-  // .then(()=>{
+ 
 
   const searchBoxContainer = document.createElement("div");
   searchBoxContainer.classList.add("searchBoxContainer");
@@ -229,8 +212,8 @@ function main() {
   const randomMealsContainer = document.createElement("div");
   randomMealsContainer.classList.add("randomMealsContainer");
   for (let i = 0; i <= 1; i++) {
-    const randomId = generateRandomId();
-    let randomUrl = `https://themealdb.com/api/json/v1/1/lookup.php?i=${randomId}`;
+    //const randomId = generateRandomId();
+    let randomUrl = `https://www.themealdb.com/api/json/v1/1/random.php`;
     fetchData(randomUrl)
       .then((randomMealData) => {
         let randomMeal = renderRandomMeals(randomMealData);
@@ -243,9 +226,6 @@ function main() {
   }
   DOMSearchedResultsContainer.appendChild(randomMealsContainer);
 
-  // })
-
-  //  .then(()=>{
   let searchedMeal = document.getElementById("meal-name");
   searchedMeal.onfocus = () => {
     searchedMeal.scrollIntoView({
@@ -298,9 +278,28 @@ function main() {
         console.log(error);
       });
   };
-  //  })
+  DOMSearchedResultsContainer.addEventListener("click", function (event){
+    let unRequiredPage = document.getElementById("allSearchedResultsContainer");
+    var isClickInsideUnRequiredPageunRequiredPage = unRequiredPage.contains(event.target)
+     if(unRequiredPage && !isClickInsideUnRequiredPageunRequiredPage ){
+         location.reload();
+         DOMSearchedResultsContainer.classList.remove("Dom-Hover")
+     }
+  })
+
+  DOMSearchedResultsContainer.addEventListener("mouseenter", function (event){
+    let unRequiredPage = document.getElementById("allSearchedResultsContainer");
+    var isClickInsideUnRequiredPageunRequiredPage = unRequiredPage.contains(event.target)
+     if(unRequiredPage && !isClickInsideUnRequiredPageunRequiredPage ){
+         DOMSearchedResultsContainer.classList.add("Dom-Hover")
+     }
+     DOMSearchedResultsContainer.classList.remove("Dom-Hover")
+
+  })
+
+
 }
 
 window.onload = main();
 
-//${selectedMeal[data-mealId]
+
